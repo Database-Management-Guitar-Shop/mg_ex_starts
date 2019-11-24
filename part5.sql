@@ -54,8 +54,20 @@ WHERE category_name IS NOT NULL
 OR product_name  IS NOT NULL
 GROUP BY product_name WITH ROLLUP;
 
-SELECT order_id,  SUM((item_price - discount_amount) * quantity) as totalamount, SUM(Quantity) OVER (ORDER BY order_id ASEC)as total_amount_of_orders 
+SELECT order_id,  SUM((item_price - discount_amount) * quantity) as totalamount, SUM(Quantity) OVER (ORDER BY order_id)as total_amount_of_orders 
 FROM order_items 
 GROUP BY order_id;
 
 
+SELECT category_name, product_name, COUNT(quantity) OVER() as total_count
+FROM  products as p 
+JOIN order_items as oi ON p.product_id = oi.product_id
+JOIN categories as c ON c.category_id = p.category_id 
+WHERE category_name IS NOT NULL
+OR product_name  IS NOT NULL;
+
+
+SELECT o.customer_id, o.order_date, SUM(oi.item_price), SUM(oi.quantity) 
+OVER (partition by c.customer_id), SUM(oi.quantity) OVER (order by o.order_date)
+FROM order_items as o JOIN orders as o ON o.order_id = oi.order_id
+JOIN products as p ON p.customer_id = o.customer_id;
