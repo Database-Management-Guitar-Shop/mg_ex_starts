@@ -1,7 +1,6 @@
 SELECT product_code, product_name, list_price, discount_percent FROM products ORDER BY list_price desc;
 
-
-SELECT CONCAT(last_name,', ',first_name) full_name
+SELECT CONCAT(last_name,',',first_name) full_name
 FROM customers WHERE last_name between 'M%' and 'Z%' ORDER BY last_name ASC;
 
 SELECT product_name, list_price, date_added FROM products
@@ -28,7 +27,4 @@ FROM orders WHERE ship_date IS NULL;
 
 SELECT NOW() AS today_unformatted, DATE_FORMAT(NOW(), '%d %b %Y') AS today_formatted;
 
-SELECT 100 AS Price,
-.07 AS TaxRate,
-100 * .07 AS TaxAmount,
-(100) + (100 * .07) AS Total;
+SELECT 100 AS Price, 0.07 AS TaxRate, 100 * 0.07 AS TaxAmount, (100) + (100 * 0.07) AS Total;
