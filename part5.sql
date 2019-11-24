@@ -33,7 +33,7 @@ WHERE item_price > 400
 GROUP BY email_address
 ORDER BY order_total DESC;
 
-SELECT product_name,  SUM((item_price - discount_amount) * quantity) AS total_product
+SELECT p.product_name,  SUM((oi.item_price - oi.discount_amount) * oi.quantity) AS total_product
 FROM products as p
 JOIN order_items as oi ON p.product_id = oi.product_id
 GROUP BY product_name WITH ROLLUP;
